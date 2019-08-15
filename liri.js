@@ -17,7 +17,7 @@ if(command == "concert-this"){
   request(bisURL, function(error, response, body){
       if (!error && response.statusCode === 200) {
         var output = JSON.parse(body);
-        console.log('No Band or concert found!');
+        //console.log('No Band or concert found!');
           for(i=0; i<output.length; i++){
               console.log("Venue: " + output[i].venue.name);
               console.log("Location: " + output[i].venue.city + ", " + output[i].venue.region);
