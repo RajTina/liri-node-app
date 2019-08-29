@@ -2,7 +2,7 @@ require("dotenv").config();
 var keys = require("./keys.js");
 var request = require("request");
 var moment = require("moment");
-//var axios = require("axios");
+var axios = require("axios");
 var fs = require("fs");
 //var spotify = require("spotify");
 var Spotify = require("node-spotify-api");
@@ -91,7 +91,7 @@ else if(command == "movie-this"){
       
       })
   }
-}
+ }
 
 else if(command == "do-what-it-says"){
   fs.readFile("random.txt", "utf8", function(error, data){
@@ -102,6 +102,8 @@ else if(command == "do-what-it-says"){
       }
 
       var dataArr = data.split(",");
+      //split the string by each ,
+      //each spliit wiill be a seperate index in the array
 
       if(dataArr[0] == "concert-this"){
           var bisURL = "https://rest.bandsintown.com/artists/" + dataArr[1] + "/events?app_id=codingbootcamp";
@@ -146,9 +148,14 @@ else if(command == "do-what-it-says"){
           }
       }
       
-      else if(command == "movie-this"){
-          if(dataArr[0] === undefined){
+      else if(dataArr[0] == "movie-this"){
+          if(dataArr[1] === undefined){
               console.log("Title: Mr. Nobody");
+              var omdbURL = "http://www.omdbapi.com/?t=Mr. Nobody&y=&plot=short&apikey=trilogy";
+              axios.get(omdbURL)
+                .then(function(movieData){
+                    console.log(movieData.data)
+                })
               console.log("The movie was made in: 2009");
               console.log("IMDB Rating: 7.9");
               console.log("Rotten Tomatoes Rating: 67%");
@@ -185,4 +192,5 @@ else if(command == "do-what-it-says"){
 else{
   console.log("Please input a correct command.");
 }
+
 
